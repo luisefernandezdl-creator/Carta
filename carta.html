@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Sofía 💖</title>
+
+
+<style>
+body{
+    margin:0;
+    min-height:100vh;
+    background:linear-gradient(135deg,#ff758c,#ff7eb3);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:'Segoe UI',sans-serif;
+    overflow-x:hidden;
+}
+
+.carta{
+    background:white;
+    width:380px;
+    padding:25px;
+    border-radius:22px;
+    text-align:center;
+    box-shadow:0 15px 30px rgba(0,0,0,.25);
+    animation:aparecer 1.5s ease;
+    position:relative;
+}
+
+h1{color:#e63946;margin-bottom:8px;}
+p{color:#444;font-size:15px;line-height:1.5;}
+
+.corazon{
+    font-size:34px;
+    animation:latir 1s infinite;
+}
+
+button{
+    background:#e63946;
+    color:white;
+    border:none;
+    padding:12px 22px;
+    border-radius:25px;
+    font-size:16px;
+    cursor:pointer;
+    margin-top:12px;
+}
+
+button:hover{background:#d62839;transform:scale(1.05);}
+
+.firma{
+    margin-top:15px;
+    font-style:italic;
+    color:#777;
+}
+
+.contador{
+    margin-top:18px;
+    font-size:13px;
+    color:#555;
+}
+
+/* 📸 Polaroids */
+.polaroids{
+    position:relative;
+    height:260px;
+    margin:20px 0;
+}
+
+.polaroid{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    background:white;
+    padding:8px 8px 28px;
+    border-radius:4px;
+    box-shadow:0 8px 20px rgba(0,0,0,.3);
+    opacity:0;
+    cursor:grab;
+    animation:apilar .8s forwards;
+}
+
+.polaroid img{
+    width:190px;
+    height:190px;
+    object-fit:cover;
+}
+
+.polaroid span{
+    display:block;
+    margin-top:6px;
+    font-family:'Comic Sans MS', cursive;
+    font-size:14px;
+    color:#555;
+}
+
+.polaroid:nth-child(1){
+    animation-delay:.3s;
+    transform:translateX(-50%) rotate(-6deg);
+}
+.polaroid:nth-child(2){
+    animation-delay:.9s;
+    transform:translateX(-50%) rotate(4deg);
+}
+.polaroid:nth-child(3){
+    animation-delay:1.5s;
+    transform:translateX(-50%) rotate(-2deg);
+}
+
+/* ❤️ Corazones */
+.heart{
+    position:fixed;
+    top:-20px;
+    font-size:24px;
+    animation:fall linear forwards;
+}
+
+/* 💌 Mensaje secreto */
+.secreto{
+    margin-top:15px;
+    font-size:14px;
+    color:#e63946;
+    opacity:0;
+    animation:aparecer 2s forwards;
+    animation-delay:4s;
+}
+
+@keyframes fall{
+    to{transform:translateY(110vh);opacity:0;}
+}
+
+@keyframes apilar{
+    from{transform:translate(-50%,-30px) scale(.8);opacity:0;}
+    to{opacity:1;}
+}
+
+@keyframes latir{
+    0%{transform:scale(1)}
+    50%{transform:scale(1.25)}
+    100%{transform:scale(1)}
+}
+
+@keyframes aparecer{
+    from{opacity:0;transform:translateY(30px)}
+    to{opacity:1;transform:translateY(0)}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="musica" loop>
+    <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<div class="carta" id="carta">
+    <div class="corazon">❤️</div>
+    <h1>Sofía<br>Mi amor eterno</h1>
+
+
+
+     <p>
+        Contigo entendí que el amor vive en los detalles,
+        en las risas simples y en compartir la vida.
+    </p>
+
+    <p>
+        No hay nadie con quien prefiera vivir este día
+        ni todos los que vienen después.
+
+    <p><strong>¿Quieres ser mi San Valentín?</strong></p>
+
+    <button onclick="decirSi()">Sí, contigo 💖</button>
+
+
+
+<script>
+const musica = document.getElementById("musica");
+
+// 💖 Al decir que sí
+function decirSi(){
+    musica.play();
+    lanzarCorazones();
+
+    document.getElementById("carta").innerHTML = `
+        <div class="corazon">💘</div>
+        <h1>Mi San Valentín</h1>
+
+        <div class="polaroids" id="polaroids">
+            <div class="polaroid">
+                <img src="foto1.jpeg">
+                <span>Nuestro comienzo 💕</span>
+            </div>
+            <div class="polaroid">
+                <img src="foto2.jpeg">
+                <span>Mi lugar favorito</span>
+            </div>
+            <div class="polaroid">
+                <img src="foto3.jpeg">
+                <span>Siempre contigo</span>
+            </div>
+        </div>
+
+        <p>
+            Gracias por decir que sí.
+            Prometo cuidarte, apoyarte
+            y elegirte todos los días.
+        </p>
+
+        <div class="secreto">
+            Spoiler: eres mi persona favorita en este y todos los universos ✨
+        </div>
+
+        <div class="firma">
+            Con amor,<br>
+            Luis 💕<br>
+            08/02/2026
+        </div>
+
+        <div class="contador" id="contador"></div>
+    `;
+
+    activarArrastre();
+}
+
+// ❤️ Corazones
+function lanzarCorazones(){
+    for(let i=0;i<40;i++){
+        const h=document.createElement("div");
+        h.className="heart";
+        h.innerHTML="❤️";
+        h.style.left=Math.random()*100+"vw";
+        h.style.animationDuration=(2+Math.random()*3)+"s";
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(),5000);
+    }
+}
+
+// 📸 Arrastrar polaroids
+function activarArrastre(){
+    document.querySelectorAll(".polaroid").forEach(p=>{
+        p.onpointerdown=e=>{
+            p.setPointerCapture(e.pointerId);
+            p.style.zIndex=999;
+            p.onpointermove=ev=>{
+                p.style.left=ev.pageX+"px";
+                p.style.top=ev.pageY-100+"px";
+            };
+            p.onpointerup=()=>p.onpointermove=null;
+        };
+    });
+}
+
+// ⏳ Contador
+const inicio = new Date("2022-12-30T00:00:00");
+
+function actualizarContador(){
+    const ahora=new Date();
+    let diff=ahora-inicio;
+
+    let s=Math.floor(diff/1000)%60;
+    let m=Math.floor(diff/60000)%60;
+    let h=Math.floor(diff/3600000)%24;
+    let d=Math.floor(diff/86400000);
+
+    const c=document.getElementById("contador");
+    if(c){
+        c.innerHTML=
+        `Mi amor por ti comenzó hace…<br>
+        ${d} días, ${h} horas, ${m} minutos y ${s} segundos 💖`;
+    }
+}
+setInterval(actualizarContador,1000);
+actualizarContador();
+</script>
+
+</body>
+</html>
